@@ -12,6 +12,9 @@ const Cart = ({ navigation }) => {
   return (
     <SafeAreaView style={{ backgroundColor: "#FFF", height: "100%" }} >
       <ScrollView >
+        <View>
+          
+        </View>
         <View >
           <Text style={{}}>Meu Carrinho</Text>
 
