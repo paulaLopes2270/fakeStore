@@ -20,7 +20,6 @@ import PlusImg from "../../assets/Home/PLUS_1.png"
 
 //---------- componente novidades ------------------------------- 
 const CreateLastItems = ({ item }) => {
-    // console.log(item)
     return (
         <View style={styles.containerProduct}>
             <View>
@@ -43,18 +42,14 @@ const CreateLastItems = ({ item }) => {
     )
 }
 
-
-
 // -------------------------page---------------------------
 const Home = ({ navigation }) => {
-    // useEffect(()=> {getProductsByCategory()}, [])
     const [products, setProducts] = useState([])
     const lastItems = products.slice(0, 5)
     const [selectedCategoryIndex, setSelectedCategoryIndex] = useState(0);
 
     //---------filtrando os produtos pela categoria -----------
     const productByType = products.reduce((productByType, currentProduct) => {
-        //   console.log(`Produto Atual: ${currentProduct}`)
         productByType[currentProduct.category] = productByType[currentProduct.category] || []
         productByType[currentProduct.category].push(currentProduct);
 
@@ -63,32 +58,24 @@ const Home = ({ navigation }) => {
 
     //------------pegando as categorias -------------- 
     const categoryNameList = Object.keys(productByType)
-    // console.log(productByType)
-    // console.log(categoryNameList)
 
     const selectCategoryName = categoryNameList[selectedCategoryIndex]
-    console.log(selectCategoryName)
 
     useEffect(() => {
         const getData = async () => {
             const { data } = await getProductsByCategory()
-            // console.log(data)
             setProducts(data)
         }
         getData()
-        // CreateCardCategory()
     }, [])
 
     // ---------------- componente categorias ---------------
     const CreateCardCategory = ({ item, index }) => {
         const isSelectButton = selectedCategoryIndex === index
-        // console.log(`ITEM AQUI: ${index}`)
         const selectedButtonStyle = { backgroundColor: isSelectButton ? "#8775FE" : "transparent" }
         const buttonCategoryStyle = { ...styles.buttonCategorys, ...selectedButtonStyle }
         const selectedTextCategoryStyle = { color: isSelectButton ? "#FFF" : "#B4B4B6" }
         const textCategoryStyle = { ...styles.textCatogory, ...selectedTextCategoryStyle }
-
-
         return (
             <View style={styles.containerCategorys}>
                 <TouchableOpacity style={buttonCategoryStyle}
@@ -100,10 +87,8 @@ const Home = ({ navigation }) => {
             </View>
         )
     }
-
     // ------------------ componente card -------------------------------
     const CreateCardProduct = ({ item }) => {
-        // console.log(item)
         return (
             <View style={styles.containerCarProduct}>
                 <View>
@@ -144,7 +129,7 @@ const Home = ({ navigation }) => {
                         renderItem={CreateCardCategory}
                         horizontal
                         showsHorizontalScrollIndicator={false}
-                         />
+                    />
                     <Text style={styles.textNews}>
                         Novidades
                     </Text>
