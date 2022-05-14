@@ -7,14 +7,14 @@ import {
   View,
 } from 'react-native';
 
-const Cart = () => {
-  
+const Cart = ({ navigation }) => {
+
   return (
-    <SafeAreaView style={{backgroundColor:"#FFF", height:"100%"}} >
+    <SafeAreaView style={{ backgroundColor: "#FFF", height: "100%" }} >
       <ScrollView >
         <View >
-         <Text style={{}}>Oi</Text>
-          
+          <Text style={{}}>Meu Carrinho</Text>
+
         </View>
       </ScrollView>
     </SafeAreaView>

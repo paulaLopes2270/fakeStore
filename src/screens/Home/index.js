@@ -1,60 +1,165 @@
 import React, { useEffect, useState } from 'react';
-
 import {
     SafeAreaView,
     ScrollView,
     Text,
     View,
     FlatList,
-    Button,
     Image,
+    TouchableOpacity,
 } from 'react-native';
 
 //services
 import { getProductsByCategory } from '../../services/ProductApi/httpCommon'
+// styles
+import styles from './style'
 
-// component
-const CreateCardProduct = ({ cardProduct }) => {
-    console.log(cardProduct)
+// img
+import BagImg from "../../assets/Home/BAG_1.png"
+import PlusImg from "../../assets/Home/PLUS_1.png"
+
+//---------- componente novidades ------------------------------- 
+const CreateLastItems = ({ item }) => {
+    // console.log(item)
     return (
-
-        <View style={{height:200, width:100}}>
-            <Text>{cardProduct.price}</Text>
-            <Text>{cardProduct.title}</Text>
+        <View style={styles.containerProduct}>
+            <View>
+                <Image
+                    style={styles.imgProduct}
+                    source={{ uri: item.image }} />
+                <View>
+                    <Text style={styles.textCategory}>{item.category}</Text>
+                    <Text style={styles.textTitle}>{item.title}</Text>
+                    <Text style={styles.textDescription}>{item.description}</Text>
+                    <View style={styles.viewPrice}>
+                        <Text style={styles.textPrice}>${item.price}</Text>
+                        <TouchableOpacity>
+                            <Image source={PlusImg} />
+                        </TouchableOpacity>
+                    </View>
+                </View>
+            </View>
         </View>
     )
 }
 
 
-// page
+
+// -------------------------page---------------------------
 const Home = ({ navigation }) => {
     // useEffect(()=> {getProductsByCategory()}, [])
-    const [data, setData] = useState([])
+    const [products, setProducts] = useState([])
+    const lastItems = products.slice(0, 5)
+    const [selectedCategoryIndex, setSelectedCategoryIndex] = useState(0);
+
+    //---------filtrando os produtos pela categoria -----------
+    const productByType = products.reduce((productByType, currentProduct) => {
+        //   console.log(`Produto Atual: ${currentProduct}`)
+        productByType[currentProduct.category] = productByType[currentProduct.category] || []
+        productByType[currentProduct.category].push(currentProduct);
+
+        return productByType
+    }, {})
+
+    //------------pegando as categorias -------------- 
+    const categoryNameList = Object.keys(productByType)
+    // console.log(productByType)
+    // console.log(categoryNameList)
+
+    const selectCategoryName = categoryNameList[selectedCategoryIndex]
+    console.log(selectCategoryName)
 
     useEffect(() => {
-
         const getData = async () => {
             const { data } = await getProductsByCategory()
             // console.log(data)
-            setData(data)
+            setProducts(data)
         }
         getData()
+        // CreateCardCategory()
     }, [])
 
-    return (
-        <SafeAreaView style={{ backgroundColor: "#FFF", height: "100%" }} >
-            <ScrollView >
-                <View >
-                {data.map((item, index) => {
-                            return <CreateCardProduct cardProduct={item} key={index} />
-                        })}
+    // ---------------- componente categorias ---------------
+    const CreateCardCategory = ({ item, index }) => {
+        const isSelectButton = selectedCategoryIndex === index
+        // console.log(`ITEM AQUI: ${index}`)
+        const selectedButtonStyle = { backgroundColor: isSelectButton ? "#8775FE" : "transparent" }
+        const buttonCategoryStyle = { ...styles.buttonCategorys, ...selectedButtonStyle }
+        const selectedTextCategoryStyle = { color: isSelectButton ? "#FFF" : "#B4B4B6" }
+        const textCategoryStyle = { ...styles.textCatogory, ...selectedTextCategoryStyle }
 
-                    
-                       
-                        {/* <Button
-         title="Cart"
-         onPress={() => navigation.navigate('Cart')}
-         /> */}
+
+        return (
+            <View style={styles.containerCategorys}>
+                <TouchableOpacity style={buttonCategoryStyle}
+                    onPress={() => {
+                        setSelectedCategoryIndex(index)
+                    }}>
+                    <Text style={textCategoryStyle}>{item}</Text>
+                </TouchableOpacity>
+            </View>
+        )
+    }
+
+    // ------------------ componente card -------------------------------
+    const CreateCardProduct = ({ item }) => {
+        // console.log(item)
+        return (
+            <View style={styles.containerCarProduct}>
+                <View>
+                    <View style={styles.viewCardImage}>
+                        <Image
+                            style={styles.imgProduct}
+                            source={{ uri: item.image }} />
+                        <TouchableOpacity>
+                            <Image style={styles.addButton} source={PlusImg} />
+                        </TouchableOpacity>
+                    </View>
+                    <View>
+                        <Text style={styles.textCategory}>{item.category}</Text>
+                        <Text style={styles.textTitle}>{item.title}</Text>
+                        <Text style={styles.priceCardProduct}>${item.price}</Text>
+                    </View>
+                </View>
+            </View>
+        )
+    }
+
+    return (
+        <SafeAreaView style={styles.containerPage} >
+            <ScrollView >
+                <View style={styles.titleContainer}>
+                    <Text style={styles.textProducts}>
+                        Produtos
+                    </Text>
+                    <TouchableOpacity onPress={() => navigation.navigate("Cart")}>
+                        <Image style={styles.cartImage} source={BagImg} />
+                    </TouchableOpacity>
+                </View>
+                <Text style={styles.textFilterCategory}>
+                    FILTRAR CATEGORIA
+                </Text>
+                <View >
+                    <FlatList data={categoryNameList}
+                        renderItem={CreateCardCategory}
+                        horizontal
+                        showsHorizontalScrollIndicator={false}
+                         />
+                    <Text style={styles.textNews}>
+                        Novidades
+                    </Text>
+                    <FlatList data={lastItems}
+                        renderItem={CreateLastItems}
+                        horizontal
+                        showsHorizontalScrollIndicator={false}
+                        style={styles.flatListCategorys} />
+                    <Text style={styles.textLister}>
+                        Listagem
+                    </Text>
+                    <FlatList
+                        data={productByType[selectCategoryName]}
+                        renderItem={CreateCardProduct}
+                        numColumns="2" />
                 </View>
             </ScrollView>
         </SafeAreaView>
