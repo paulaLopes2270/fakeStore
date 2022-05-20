@@ -7,20 +7,27 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 //pages 
 import Home from './src/screens/Home'
 import Cart from './src/screens/Cart'
+import {Success} from './src/screens/PurchaseCompleted'
+
+//contexto
+import {CartProvider} from './src/context/CartContext/index'
 
 
 const Stack = createNativeStackNavigator();
 
 const App = () => {
   return (
-  <NavigationContainer>
-    <Stack.Navigator initialRouteName="Home" screenOptions={{
-    headerShown: false
-  }}>
-    <Stack.Screen name="Home" component={Home}/>
-    <Stack.Screen name="Cart" component={Cart}/>
-    </Stack.Navigator>
-  </NavigationContainer>
+    <CartProvider>
+      <NavigationContainer>
+        <Stack.Navigator initialRouteName="Home" screenOptions={{
+          headerShown: false
+        }}>
+          <Stack.Screen name="Home" component={Home} />
+          <Stack.Screen name="Cart" component={Cart}/>
+          <Stack.Screen name="Success" component={Success}/>
+        </Stack.Navigator>
+      </NavigationContainer>
+     </CartProvider>
   );
 };
 
