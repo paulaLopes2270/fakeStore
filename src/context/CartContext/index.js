@@ -35,6 +35,11 @@ export const CartProvider = ({ children }) => {
         })
     }
 
+    const clearCart = () => {
+        setProductsCart([])
+        console.log("limpa")
+    }
+
     const removeProductCart = (product) => {
         const { id } = product
         setProductsCart((productsToCart) => {
@@ -69,7 +74,7 @@ export const CartProvider = ({ children }) => {
     }
 
     return (
-        <CartContext.Provider value={{ productsCart, addProductToCart, removeProductCart, cartTotalValue, cartTotalItem }}>
+        <CartContext.Provider value={{ productsCart, addProductToCart, removeProductCart, cartTotalValue, cartTotalItem, clearCart }}>
             {children}
         </CartContext.Provider>
     )

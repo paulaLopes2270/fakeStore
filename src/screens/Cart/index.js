@@ -22,7 +22,7 @@ import { CartContext } from '../../context/CartContext'
 
 
 const Cart = ({ navigation }) => {
-  const { productsCart, addProductToCart, removeProductCart, cartTotalValue, cartTotalItem } = useContext(CartContext)
+  const { productsCart, addProductToCart, removeProductCart, cartTotalValue, cartTotalItem, clearCart } = useContext(CartContext)
   // console.log(productsCart)
   const CreateCardCart = ({ item }) => {
     // console.log(item)
@@ -49,17 +49,19 @@ const Cart = ({ navigation }) => {
       </View>
     )
   }
-  return cartTotalItem === 0 ? <SafeAreaView style={{flex:1,backgroundColor:"#fff"}}>
-    <ScrollView style={{marginHorizontal: 16,}}>
+  return cartTotalItem === 0 ? <SafeAreaView style={{ flex: 1, backgroundColor: "#fff" }}>
+    <ScrollView style={{ marginHorizontal: 16, }}>
       <Text style={styles.textTitle}>Meu Carrinho</Text>
-      <View style={{justifyContent:'center', alignItems:'center', marginTop:139}}>
-      <Image
-      source={imgBag}/>
-      <Text style={styles.textCartEmpty}>NENHUM ITEM ADICIONADO NO CARRINHHO</Text>
-      <TouchableOpacity style={styles.viewButtonCartEmpty} onPress={() => navigation.navigate("Home")}>
+      <View style={{ justifyContent: 'center', alignItems: 'center', marginTop: 139 }}>
+        <Image
+          source={imgBag} />
+        <Text style={styles.textCartEmpty}>NENHUM ITEM ADICIONADO NO CARRINHHO</Text>
+        <TouchableOpacity style={styles.viewButtonCartEmpty} onPress={() => {
+          navigation.navigate("Home")
+        }}>
           <Text style={styles.textButtonFinish}> ADICIONAR ITENS </Text>
         </TouchableOpacity>
-        </View>
+      </View>
     </ScrollView>
   </SafeAreaView>
 
@@ -83,7 +85,10 @@ const Cart = ({ navigation }) => {
         <Text style={styles.totalPrice}>${cartTotalValue.toFixed(2)}</Text>
       </View>
       <View style={styles.viewFinish}>
-        <TouchableOpacity style={styles.viewButtonFinish} onPress={() => navigation.navigate("Success")}>
+        <TouchableOpacity style={styles.viewButtonFinish} onPress={() => {
+          clearCart()
+          navigation.navigate("Success")
+          }}>
           <Text style={styles.textButtonFinish}> FINALIZAR COMPRA </Text>
         </TouchableOpacity>
       </View>
