@@ -86,9 +86,9 @@ const Cart = ({ navigation }) => {
       </View>
       <View style={styles.viewFinish}>
         <TouchableOpacity style={styles.viewButtonFinish} onPress={() => {
-          clearCart()
           navigation.navigate("Success")
-          }}>
+          clearCart()
+        }}>
           <Text style={styles.textButtonFinish}> FINALIZAR COMPRA </Text>
         </TouchableOpacity>
       </View>
