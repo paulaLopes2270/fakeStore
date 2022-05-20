@@ -22,7 +22,7 @@ import { CartContext } from '../../context/CartContext'
 
 
 const Cart = ({ navigation }) => {
-  const { productsCart, addProductToCart, removeProductCart, cartTotalValue, cartTotalItem, clearCart } = useContext(CartContext)
+  const { productsCart, addProductToCart, removeProductCart, cartTotalValue, cartTotalItem } = useContext(CartContext)
   // console.log(productsCart)
   const CreateCardCart = ({ item }) => {
     // console.log(item)
@@ -87,7 +87,6 @@ const Cart = ({ navigation }) => {
       <View style={styles.viewFinish}>
         <TouchableOpacity style={styles.viewButtonFinish} onPress={() => {
           navigation.navigate("Success")
-          clearCart()
         }}>
           <Text style={styles.textButtonFinish}> FINALIZAR COMPRA </Text>
         </TouchableOpacity>

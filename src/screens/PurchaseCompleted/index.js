@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useContext } from 'react'
 
 import {
     SafeAreaView,
@@ -14,9 +14,13 @@ import styles from './styles'
 //img
 import imgSuccess from '../../assets/Success/CONFIRMATION.png'
 
+//contexto
+import { CartContext } from '../../context/CartContext'
+
 
 export const Success = ({ navigation }) => {
-
+    const { clearCart } = useContext(CartContext)
+    useEffect(() => { clearCart() }, [])
     return (
         <SafeAreaView style={styles.container}>
             <View style={styles.viewSucess}>
