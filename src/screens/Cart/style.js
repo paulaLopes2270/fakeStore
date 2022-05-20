@@ -38,7 +38,7 @@ const styles = StyleSheet.create({
     productName:{
         fontSize: RFValue(14), 
         height: RFValue(16),
-        width: RFValue(130), 
+        width: RFValue(160), 
         color:"#000", fontFamily: "WorkSans-Bold"
     },
 
@@ -78,10 +78,18 @@ const styles = StyleSheet.create({
     }, 
 
     ContainerPriceCart:{
-        height: 38, borderTopWidth: 1, borderBottomWidth: 1, borderColor: "#EBEBED", flexDirection: 'row', justifyContent: 'space-between', paddingHorizontal: 22, alignItems: 'center'
+        height: RFValue(38), 
+        borderTopWidth: 1, 
+        borderBottomWidth: 1, 
+        borderColor: "#EBEBED", 
+        flexDirection: 'row', 
+        justifyContent: 'space-between', 
+        paddingHorizontal: RFValue(22), 
+        alignItems: 'center'
     }, 
     totalText:{
-       fontSize: 14, color:"#000", 
+       fontSize: RFValue(14), 
+       color:"#000", 
        fontFamily: "WorkSans-Bold"  
     },
     totalPrice:{
@@ -90,8 +98,8 @@ const styles = StyleSheet.create({
     },
     viewFinish:{
         bottom: 0, 
-        fontSize: 40, 
-        height: 112, 
+        fontSize: RFValue(40), 
+        height: RFValue(112), 
         width: '100%', 
         textAlign: 'center', 
         alignItems: 'center', 
@@ -103,9 +111,9 @@ const styles = StyleSheet.create({
         backgroundColor: "#504DB6",
         alignItems: 'center', 
         justifyContent: 'center', 
-        height: 50, 
+        height: RFValue(50), 
         alignItems: "center", 
-        width: 317, 
+        width: RFValue(317), 
         borderRadius: 37
     },
     textButtonFinish:{
@@ -117,20 +125,19 @@ const styles = StyleSheet.create({
         backgroundColor: "#8775FE",
         alignItems: 'center', 
         justifyContent: 'center', 
-        height: 50, 
+        height: RFValue(50), 
         alignItems: "center", 
-        width: 317, 
+        width: RFValue(317), 
         borderRadius: 37,
     },
     textCartEmpty:{
-        width:200,
-        fontSize:14, 
+        width:RFValue(250),
+        fontSize:RFValue(14), 
         color:"#9A9999" ,
         textAlign:'center', 
-        marginTop:10, 
-        // lineHeight:16,
+        marginTop:RFValue(10), 
         letterSpacing:1,
-        marginBottom:14, 
+        marginBottom:RFValue(14), 
         fontFamily:"WorkSans-Medium"
     }
 

@@ -55,7 +55,7 @@ const Cart = ({ navigation }) => {
       <View style={{ justifyContent: 'center', alignItems: 'center', marginTop: 139 }}>
         <Image
           source={imgBag} />
-        <Text style={styles.textCartEmpty}>NENHUM ITEM ADICIONADO NO CARRINHHO</Text>
+        <Text style={styles.textCartEmpty}>NENHUM ITEM ADICIONADO NO CARRINHHO.</Text>
         <TouchableOpacity style={styles.viewButtonCartEmpty} onPress={() => {
           navigation.navigate("Home")
         }}>

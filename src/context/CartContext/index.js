@@ -37,7 +37,6 @@ export const CartProvider = ({ children }) => {
 
     const clearCart = () => {
         setProductsCart([])
-        console.log("limpa")
     }
 
     const removeProductCart = (product) => {
